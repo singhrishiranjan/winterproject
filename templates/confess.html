@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>Make a Confession to {{receiver}}</h1>
+    <form id="confess_form" name="confess_form" action="{{url_for('confess', receiver = receiver)}}" method="post">
+        <label for="confession">Your Confession:</label><br>
+        <textarea id="confession" name="confession" rows="4" cols="50" required></textarea><br><br>
+        {% if sender %}
+            <input type="checkbox" id="anonymous" name="anonymous">
+            <label for="anonymous">Submit Anonymously</label><br><br>
+        {% endif %}
+        <input type="submit" value="Submit Confession">
+    </form>
+{% endblock %}  
