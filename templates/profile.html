@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if is_visitor %}
+    <h2>{{ username }}'s Profile</h2>
+{% else %}
+    <h2>Your Profile</h2>
+{% endif %}
+
+{% if pfp %}
+    <img src="{{ url_for('static', filename='uploads/' + pfp) }}" alt="{{ username }}'s Profile Picture" width="150" height="150">
+{% else %}
+    <p>Profile Picture: No profile picture available.</p>
+{% endif %}
+
+{% if name %}
+    <p>Name: {{ name }}<p>
+{% else %}
+    <p>Name: Not provided</p>
+{% endif %}
+
+{% if bio %}
+    <p>Bio: {{ bio }}</p>
+{% else %}
+    <p>Bio: No bio available.</p>
+{% endif %}
+{% if is_visitor %}
+    <a href="{{ url_for('confess', receiver=username) }}"><button>Send Confession</button></a>
+{% else %}
+    <a href="{{ url_for('update_profile', username=username) }}"><button>Edit Profile</button></a>
+    
+{% endif %}
+{% if session.get('user_id') %}
+<a href="{{ url_for('dashboard', username = username)}}"><button>Back to Dashboard</button></a>
+{% else %}
+<a href="{{ url_for('login') }}"><button>Login</button></a>
+{% endif %}
+{% endblock %}

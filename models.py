@@ -12,6 +12,11 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
+    name = db.Column(db.String(100), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    pfp = db.Column(db.String(255), nullable=True) #profile picture filename
+
+
     received_confessions = db.relationship('Confession', back_populates='receiver', lazy=True, foreign_keys='Confession.receiver_id')
     sent_confessions = db.relationship('Confession', back_populates='sender', lazy=True, foreign_keys='Confession.sender_id')  
 

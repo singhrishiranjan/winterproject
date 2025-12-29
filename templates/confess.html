@@ -11,4 +11,6 @@
         {% endif %}
         <input type="submit" value="Submit Confession">
     </form>
+    <a href="{{ url_for('profile', username=receiver) }}"><button>View Profile</button></a>
+    <a href="{{ url_for('login') }}"><button>Login</button></a>
 {% endblock %}  

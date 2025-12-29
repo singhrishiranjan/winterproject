@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('update_profile', username=username) }}" enctype="multipart/form-data">
+    <h1>Update Profile for {{ username }}</h1>
+    
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" value="{{ name|default('') }}"><br><br>
+    
+    <label for="bio">Bio:</label><br>
+    <textarea id="bio" name="bio" rows="4" cols="50">{{ bio|default('') }}</textarea><br><br>
+    
+    <label for="pfp">New Profile Picture:</label><br>
+    <input type="file" id="pfp" name="pfp" accept="image/*"><br><br>
+    
+    <input type="submit" value="Update Profile">
+</form>
+<a href="{{ url_for('profile', username = username) }}"><button>Back to Profile</button></a>
+{% endblock %}

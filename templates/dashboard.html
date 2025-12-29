@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 {% block body %}
-    <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
+    <h1>Welcome to your Dashboard, {{ user.name or user.username }}!</h1>
     <p>This is your personal dashboard where you can view and manage your confessions.</p>
+
+    <h3>Recent Confessions</h3>
+    {% if confessions %}
+        <ul>
+        {% for confession in confessions %}
+            <li>
+                <strong>{{ confession.timestamp.strftime('%Y-%m-%d %H:%M') }}:</strong>
+                {{ confession.content }}
+                {% if not confession.sender %}
+                    <em>(Submitted Anonymously)</em>
+                {% else %}
+                    <em>(From: {{ confession.sender.name or confession.sender.username }})</em>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No confessions yet. Check back later!</p>
+    {% endif %}
+
+
     <a href="{{ url_for('logout') }}"><button>Logout</button></a>
+    <a href="{{ url_for('profile', username=user.username) }}"><button>View Profile</button></a>
 {% endblock %}
